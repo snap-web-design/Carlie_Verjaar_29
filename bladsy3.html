@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+<html lang="af">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Net vir jou, Carlie! 💗</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            min-height: 100svh;
+            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #fce4ec,
+                #e3f2fd,
+                #fff3e0
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h1 {
+            color: #ad6386;
+            font-size: clamp(1.8rem, 6vw, 2.7rem);
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: #66515d;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Speelarea */
+
+        #game-area {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            height: 380px;
+            margin: auto;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        /* Knoppie */
+
+        #run-button {
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            padding: 16px 25px;
+            border: none;
+            border-radius: 35px;
+
+            background: #d98caf;
+            color: white;
+
+            font-size: 1rem;
+            font-weight: bold;
+
+            box-shadow: 0 6px 18px #0002;
+
+            cursor: pointer;
+            touch-action: manipulation;
+            user-select: none;
+            white-space: nowrap;
+
+            transition:
+                left 0.3s ease,
+                top 0.3s ease;
+        }
+
+        #message {
+            min-height: 60px;
+            margin-top: 10px;
+            color: #a05278;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Verrassing */
+
+        .surprise {
+            display: none;
+            animation: appear 0.9s ease;
+            padding: 25px;
+        }
+
+        .surprise h2 {
+            color: #ad6386;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+        }
+
+        .surprise p {
+            color: #66515d;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin: 15px auto;
+        }
+
+        .birthday-icon {
+            font-size: 4rem;
+            margin: 15px 0;
+            animation: bounce 1.2s infinite;
+        }
+
+        /* Confetti */
+
+        .confetti {
+            position: fixed;
+            top: -30px;
+            pointer-events: none;
+            animation: fall 3.5s linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @media (max-width: 500px) {
+            body {
+                padding: 15px;
+            }
+
+            #game-area {
+                height: 350px;
+            }
+
+            #run-button {
+                padding: 14px 19px;
+                font-size: 0.9rem;
+            }
+
+            #message {
+                font-size: 1.05rem;
+            }
+
+            .surprise {
+                padding: 10px;
+            }
+
+            .surprise p {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-height: 650px) {
+            #game-area {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div id="game-content">
+
+            <h1>Carlie, die is net vir jou bedoel! 💗</h1>
+
+            <p class="intro">
+                Ek het 'n klein verrassing vir jou...
+                maar jy gaan eers daarvoor moet werk! 😂
+            </p>
+
+            <div id="game-area">
+
+                <button id="run-button" type="button">
+                    Net vir jou oë 👀
+                </button>
+
+            </div>
+
+            <div id="message"></div>
+
+        </div>
+
+        <div class="surprise" id="surprise">
+
+            <div class="birthday-icon">🎉🎂🥳</div>
+
+            <h2>JY HET DIT GEKRY!</h2>
+
+            <h1>GELUKKIGE VERJAARSDAG, CARLIE! 💗</h1>
+
+            <p>
+                Ek hoop jou dag is gevul met lag,
+                liefde en al die mooi dinge wat jy verdien.
+            </p>
+
+            <p>
+                Dankie dat jy so 'n besonderse mens is
+                en dat jy altyd 'n glimlag op my gesig sit.
+            </p>
+
+            <p>Geniet elke oomblik van jou spesiale dag! 🌸</p>
+
+        </div>
+
+    </div>
+
+    <script>
+        let attempts = 0;
+
+        const button = document.getElementById("run-button");
+        const gameArea = document.getElementById("game-area");
+        const message = document.getElementById("message");
+        const gameContent = document.getElementById("game-content");
+        const surprise = document.getElementById("surprise");
+
+        const comments = [
+            "Amper Carlie! 😂 Probeer weer!",
+            "Hahaha! Jy gaan my nie so maklik kry nie! 🤣",
+            "OKAY OKAY, JY HET GEWEN! 🎉"
+        ];
+
+        // Plaas die knoppie aanvanklik in die middel
+        function placeButtonInitially() {
+            const x = (gameArea.clientWidth - button.offsetWidth) / 2;
+            const y = (gameArea.clientHeight - button.offsetHeight) / 2;
+
+            button.style.left = x + "px";
+            button.style.top = y + "px";
+        }
+
+        // Plaas knoppie wanneer bladsy laai
+        window.addEventListener("load", placeButtonInitially);
+
+        // Beweeg knoppie wanneer daarop gedruk word
+        button.addEventListener("click", function() {
+
+            attempts++;
+
+            message.textContent = comments[attempts - 1];
+
+            // Derde poging: wys verrassing
+            if (attempts >= 3) {
+                button.disabled = true;
+
+                setTimeout(celebrate, 1200);
+                return;
+            }
+
+            // Bereken beskikbare ruimte
+            const maxX = gameArea.clientWidth - button.offsetWidth;
+            const maxY = gameArea.clientHeight - button.offsetHeight;
+
+            const oldX = parseFloat(button.style.left);
+            const oldY = parseFloat(button.style.top);
+
+            let newX;
+            let newY;
+            let distance;
+
+            // Kies 'n nuwe plek ver van die huidige plek
+            do {
+                newX = Math.random() * Math.max(0, maxX);
+                newY = Math.random() * Math.max(0, maxY);
+
+                distance = Math.hypot(
+                    newX - oldX,
+                    newY - oldY
+                );
+
+            } while (
+                distance < Math.min(180, Math.min(maxX, maxY) / 2)
+            );
+
+            // Beweeg die knoppie
+            button.style.left = newX + "px";
+            button.style.top = newY + "px";
+        });
+
+        // Finale verrassing
+        function celebrate() {
+
+            gameContent.style.display = "none";
+            surprise.style.display = "block";
+
+            const emojis = [
+                "🎉", "💗", "✨", "🌸", "🥳", "💕", "🎊"
+            ];
+
+            for (let i = 0; i < 80; i++) {
+
+                const confetti = document.createElement("div");
+
+                confetti.className = "confetti";
+
+                confetti.textContent =
+                    emojis[Math.floor(Math.random() * emojis.length)];
+
+                confetti.style.left = Math.random() * 100 + "vw";
+
+                confetti.style.animationDelay =
+                    Math.random() * 2 + "s";
+
+                confetti.style.fontSize =
+                    (18 + Math.random() * 20) + "px";
+
+                document.body.appendChild(confetti);
+
+                setTimeout(() => confetti.remove(), 6000);
+            }
+        }
+    </script>
+
+</body>
+</html>
